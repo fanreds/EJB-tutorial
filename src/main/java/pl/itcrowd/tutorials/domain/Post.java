@@ -25,7 +25,7 @@ public class Post implements Serializable {
     @Column(name = "CONTENT")
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USERS_ID")
     private User user;
 
