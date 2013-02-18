@@ -1,8 +1,11 @@
 package pl.itcrowd.tutorials.DAO;
 
 import pl.itcrowd.tutorials.domain.Post;
+import pl.itcrowd.tutorials.domain.User;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -25,6 +28,10 @@ public class BlogDAO {
         return entityManager.find(Post.class, id);
     }
 
+    public User getUserById(int id) {
+        return entityManager.find(User.class, id);
+    }
+
     public List<Post> getAllPosts() {
         return entityManager.createQuery("select p from Post p").getResultList();
     }
@@ -37,4 +44,11 @@ public class BlogDAO {
         entityManager.merge(post);
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void createPost(Post post) {
+
+        entityManager.persist(post);
+
+
+    }
 }
