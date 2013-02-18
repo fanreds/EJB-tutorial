@@ -46,7 +46,10 @@ public class BlogDAO {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void createPost(Post post) {
-
+        if (post.getUser().getId() != null && !entityManager.contains(post.getUser())) {
+            User u1 = getUserById(post.getUser().getId());
+            post.setUser(u1);
+        }
         entityManager.persist(post);
 
 
