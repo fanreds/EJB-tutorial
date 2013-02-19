@@ -33,6 +33,10 @@ public class BMT {
     @Resource
     private SessionContext sessionContext;
 
+
+    private Integer counter = new Integer(0);
+    User user = new User("user1");
+
     public void execute() {
         UserTransaction ut = sessionContext.getUserTransaction();
 
@@ -77,5 +81,9 @@ public class BMT {
         }
     }
 
-
+    @Schedule(hour = "*", minute = "*", second = "0/1")
+    public void generateData() {
+        Post post = new Post("name" + (++counter), "content" + counter, user);
+        blogDAO.createPost(post);
+    }
 }

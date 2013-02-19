@@ -1,4 +1,5 @@
 package pl.itcrowd.tutorials;
+
 import pl.itcrowd.tutorials.DAO.BlogDAO;
 import pl.itcrowd.tutorials.business.CMT;
 import pl.itcrowd.tutorials.business.BMT;
@@ -44,22 +45,10 @@ public class MySingleton {
 
     @PostConstruct
     public void PostConstruct() {
-        LOGGER.info("PostConstruct"+txReg.getTransactionKey());
-        generateData();
-        cmt.execute();
-        cmt.getSizeOfPost();
-        LOGGER.info("PostConstruct"+txReg.getTransactionKey());
+        LOGGER.info("PostConstruct" + txReg.getTransactionKey());
+
+
     }
 
-    public void generateData() {
-        User user = new User("user1");
 
-        Post post = new Post("name1", "content1", user);
-        Post post2 = new Post("name2", "content2", user);
-        Post post3 = new Post("name3", "content3", user);
-
-        blogDAO.createPost(post);
-        blogDAO.createPost(post2);
-        blogDAO.createPost(post3);
-    }
 }
