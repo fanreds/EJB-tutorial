@@ -50,7 +50,7 @@ public class CMT {
 //            getListPosts();
     }
 
-    @TransactionAttribute(TransactionAttributeType.NEVER)
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void getListPosts() {
         LOGGER.info("getListPosts" + txReg.getTransactionKey());
         blogDAO.getAllPosts();
