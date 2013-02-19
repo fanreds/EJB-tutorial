@@ -3,10 +3,11 @@ package pl.itcrowd.tutorials.business;
 import pl.itcrowd.tutorials.DAO.BlogDAO;
 import pl.itcrowd.tutorials.domain.Post;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.annotation.Resource;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.TransactionSynchronizationRegistry;
 import java.util.logging.Logger;
 
 /**
@@ -27,11 +28,27 @@ public class CMT {
     @EJB
     private BlogDAO blogDAO;
 
+    @Resource
+    private TransactionSynchronizationRegistry txReg;
+
     public void execute() {
         Post post;
         if ((post = blogDAO.getPostById(1)) != null) {
             post.setContent("changed post");
             blogDAO.updatePost(post);
         }
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void getSizeOfPost() {
+        LOGGER.info("getSizeOfPost" + txReg.getTransactionKey());
+        if (blogDAO.getAllPostsSize() > 0)
+            getListPosts();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.NEVER)
+    public void getListPosts() {
+        LOGGER.info("getListPosts" + txReg.getTransactionKey());
+        blogDAO.getAllPosts();
     }
 }
