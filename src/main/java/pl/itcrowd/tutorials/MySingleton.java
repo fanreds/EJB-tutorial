@@ -47,10 +47,10 @@ public class MySingleton {
 
         Post post = new Post("name1", "content1", user);
         Post post2 = new Post("name2", "content2", user);
+        Post post3 = new Post("name3", "content3", user);
 
-//        blogDAO.createPost(post);
-//        blogDAO.createPost(post2);
-        entityManager.persist(post);
-        entityManager.persist(post2);
+        blogDAO.createPost(post);
+        blogDAO.createPost(post2);
+        entityManager.persist(post3);
     }
 }
