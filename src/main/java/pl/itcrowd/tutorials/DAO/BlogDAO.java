@@ -44,7 +44,7 @@ public class BlogDAO {
         entityManager.merge(post);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void createPost(Post post) {
         if (post.getUser().getId() != null && !entityManager.contains(post.getUser())) {
             User u1 = getUserById(post.getUser().getId());
