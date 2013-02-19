@@ -55,5 +55,27 @@ public class BMT {
         }
     }
 
+    public void updatePost(){
+        UserTransaction ut = sessionContext.getUserTransaction();
+
+        try {
+            ut.begin();
+            Post post = entityManager.find(Post.class,1);
+            LOGGER.info("" + post);
+            if (post != null) {
+                post.setContent("changed post");
+                entityManager.merge(post);
+                LOGGER.info("commit");
+                ut.commit();
+            } else {
+                LOGGER.info("rollback");
+                ut.rollback();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

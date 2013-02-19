@@ -39,6 +39,7 @@ public class MySingleton {
     public void PostConstruct() {
         generateData();
         bmt.execute();
+        bmt.updatePost();
     }
 
     public void generateData() {
@@ -47,7 +48,9 @@ public class MySingleton {
         Post post = new Post("name1", "content1", user);
         Post post2 = new Post("name2", "content2", user);
 
-        blogDAO.createPost(post);
-        blogDAO.createPost(post2);
+//        blogDAO.createPost(post);
+//        blogDAO.createPost(post2);
+        entityManager.persist(post);
+        entityManager.persist(post2);
     }
 }
