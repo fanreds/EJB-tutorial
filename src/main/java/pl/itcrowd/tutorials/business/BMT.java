@@ -38,7 +38,7 @@ public class BMT {
 
         try {
             ut.begin();
-            Post post = blogDAO.getPostById(1);
+            Post post = blogDAO.getPostById(3);
             LOGGER.info("" + post);
             if (post != null) {
                 post.setContent("changed post");
