@@ -42,7 +42,7 @@ public class CMT {
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void getSizeOfPost() {
         LOGGER.info("getSizeOfPost" + txReg.getTransactionKey());
         if (blogDAO.getAllPostsSize() > 0)
@@ -50,7 +50,7 @@ public class CMT {
 //            getListPosts();
     }
 
-    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @TransactionAttribute(TransactionAttributeType.NEVER)
     public void getListPosts() {
         LOGGER.info("getListPosts" + txReg.getTransactionKey());
         blogDAO.getAllPosts();
