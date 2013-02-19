@@ -31,6 +31,9 @@ public class CMT {
     @Resource
     private TransactionSynchronizationRegistry txReg;
 
+    @Resource
+    private SessionContext sessionContext;
+
     public void execute() {
         Post post;
         if ((post = blogDAO.getPostById(1)) != null) {
@@ -43,7 +46,8 @@ public class CMT {
     public void getSizeOfPost() {
         LOGGER.info("getSizeOfPost" + txReg.getTransactionKey());
         if (blogDAO.getAllPostsSize() > 0)
-            getListPosts();
+            sessionContext.getBusinessObject(CMT.class).getListPosts();
+//            getListPosts();
     }
 
     @TransactionAttribute(TransactionAttributeType.NEVER)
