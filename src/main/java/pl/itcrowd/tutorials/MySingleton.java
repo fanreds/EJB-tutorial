@@ -8,9 +8,7 @@ import pl.itcrowd.tutorials.domain.User;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.TransactionSynchronizationRegistry;
@@ -43,12 +41,26 @@ public class MySingleton {
     @Resource
     private TransactionSynchronizationRegistry txReg;
 
+
+    @Resource
+    private TimerService timerService;
+
     @PostConstruct
     public void PostConstruct() {
         LOGGER.info("PostConstruct" + txReg.getTransactionKey());
-
+        hello2();
 
     }
 
+    public void hello2() {
+        long duration = 10000;         //10s
+        TimerConfig timerConfig = new TimerConfig();
+        timerService.createSingleActionTimer(duration, timerConfig);
+    }
 
+    @Timeout
+    public void timeout() {
+
+        LOGGER.info("hello world!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
 }
